@@ -4,24 +4,6 @@ lookerEmbedSDK.init('demo.looker.com', '/auth')
 
 
 
-lookerEmbedSDK.createDashboardWithId(159)
-  .appendTo('#main-container')
-  .withClassName('looker-embed')
-  .withTheme('LookerWhite')
-  // .on('dashboard:run:start',
-  //     () => updateState('#dashboard-state', 'Running')
-  // )
-  // .on('dashboard:run:complete',
-  //     () => updateState('#dashboard-state', 'Done')
-  // )
-  .build()
-  .connect()
-  // .then(setupDashboard)
-
-
-
-
-
 // Looker event handling – unused events
 tileEvents = [
   'dashboard:tile:start',
@@ -39,9 +21,6 @@ exploreEvents = [
   'explore:run:complete',
 ]
 
-
-// var header = document.getElementById('header');
-// header.textContent = globalConfig.headerText;
 
 title = document.getElementById('title')
 title.textContent = globalConfig.title
@@ -133,7 +112,7 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
     a.setAttribute('looker-link', item.label)
     a.innerHTML = '<i class="material-icons">' + item.icon + '</i>' + item.label
 
-    a.addEventListener('click', changeDashboard)
+    // a.addEventListener('click', changeDashboard)
 
     li.appendChild(a)
     slideOutMenu.appendChild(li)
@@ -148,76 +127,107 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
   }
 }
 
-// SET UP DEFAULT DASHBOARD
-mainDashboard = document.getElementById('looker_dashboard')
-mainDashContent = globalConfig.sidebarItems[0]
-mainDashURL = getEmbedURL(mainDashContent)
-mainDashboard.setAttribute('src', mainDashURL)
+// CREATE DEFAULT DASHBOARD
+showDashboard(159);
 
-
-window.addEventListener('message', function(event) {
-  if (event.source === mainDashboard.contentWindow) {
-    if (event.origin == globalConfig.baseURL) {
-      payload = JSON.parse(event.data)
-      handleEmbedEvent(payload)
-    }
-  }
-});
+// window.addEventListener('message', function(event) {
+//   if (event.source === mainDashboard.contentWindow) {
+//     if (event.origin == globalConfig.baseURL) {
+//       payload = JSON.parse(event.data)
+//       handleEmbedEvent(payload)
+//     }
+//   }
+// });
 
 // NOTE: most events are ignored. Placeholders below will make it easy to add
 //       new handlers if required.
-function handleEmbedEvent(e) {
-  console.log(e.type)
-  if (e.type == 'page:properties:changed') {
-    mainDashboard.setAttribute('height', e.height)
-  } else if ( e.type == 'page:changed' ) {
-    escapeButton.setAttribute('href', e.page.absoluteUrl.replace('embed/', ''))
-  } else if (e.type == 'dashboard:filters:changed') {
-    console.log('Filters changed:', e.dashboard.dashboard_filters)
-  } else if (e.type == 'explore:state:changed') {
-    mainDashboard.setAttribute('height', 600)
-  } else if ( tileEvents.includes(e.type) ) {
-    //
-  } else if ( dashboardEvents.includes(e.type) ) {
-    //
-  } else if ( exploreEvents.includes(e.type) ) {
-    //
-  } else {
-    console.log('Looker:', e.type, e)
-  }
+// function handleEmbedEvent(e) {
+//   console.log(e.type)
+//   if (e.type == 'page:properties:changed') {
+//     mainDashboard.setAttribute('height', e.height)
+//   } else if ( e.type == 'page:changed' ) {
+//     escapeButton.setAttribute('href', e.page.absoluteUrl.replace('embed/', ''))
+//   } else if (e.type == 'dashboard:filters:changed') {
+//     console.log('Filters changed:', e.dashboard.dashboard_filters)
+//   } else if (e.type == 'explore:state:changed') {
+//     mainDashboard.setAttribute('height', 600)
+//   } else if ( tileEvents.includes(e.type) ) {
+//     //
+//   } else if ( dashboardEvents.includes(e.type) ) {
+//     //
+//   } else if ( exploreEvents.includes(e.type) ) {
+//     //
+//   } else {
+//     console.log('Looker:', e.type, e)
+//   }
+// }
+
+
+// function sendEmbedEvent(e) {
+//   mainDashboard.contentWindow.postMessage(e, globalConfig.baseURL)
+// }
+
+
+// function changeDashboard(e) {
+//   var label = e.target.attributes['looker-link'].value
+//   for (i = 0; i < globalConfig.sidebarItems.length; i++) {
+//     console.log('changeDashboard()', label, globalConfig.sidebarItems[i].label)
+//     if (globalConfig.sidebarItems[i].label == label) {
+//       content = globalConfig.sidebarItems[i]
+//       break
+//     } else {
+//       content = globalConfig.sidebarItems[0]
+//     }
+//   }
+//   newURL = getEmbedURL(content)
+
+//   // header.textContent = newDash
+//   mainDashboard.setAttribute('src', newURL)
+//   if (content.category == 'explore') {
+//     mainDashboard.setAttribute('height', '600')
+//   } 
+//   mainDashboard.style.display = 'block'
+// }
+
+function showDashboard(dashboardId) {
+  var mainContainer = document.getElementById('main-container')
+  mainContainer.innerHTML = '';
+
+  lookerEmbedSDK.createDashboardWithId(dashboardId)
+  .appendTo('#main-container')
+  .withClassName('looker-embed')
+  .withTheme('LookerWhite')
+  // .on('dashboard:run:start',
+  //     () => updateState('#dashboard-state', 'Running')
+  // )
+  // .on('dashboard:run:complete',
+  //     () => updateState('#dashboard-state', 'Done')
+  // )
+  .build()
+  .connect()
+  // .then(setupDashboard)
+
+
 }
-
-
-function sendEmbedEvent(e) {
-  mainDashboard.contentWindow.postMessage(e, globalConfig.baseURL)
-}
-
-
-function changeDashboard(e) {
-  var label = e.target.attributes['looker-link'].value
-  for (i = 0; i < globalConfig.sidebarItems.length; i++) {
-    console.log('changeDashboard()', label, globalConfig.sidebarItems[i].label)
-    if (globalConfig.sidebarItems[i].label == label) {
-      content = globalConfig.sidebarItems[i]
-      break
-    } else {
-      content = globalConfig.sidebarItems[0]
-    }
-  }
-  newURL = getEmbedURL(content)
-
-  // header.textContent = newDash
-  mainDashboard.setAttribute('src', newURL)
-  if (content.category == 'explore') {
-    mainDashboard.setAttribute('height', '600')
-  } 
-  mainDashboard.style.display = 'block'
-}
-
 
 function showStaticPage(e) {
+  var mainContainer = document.getElementById('main-container')
+  mainContainer.innerHTML = '';
+
+  var contentFrame = document.createElement('iframe')
+  contentFrame.setAttribute('src', '')
+  contentFrame.setAttribute('width', '100%' )
+  contentFrame.setAttribute('height', '2500' )
+  contentFrame.setAttribute('frameBorder', '0')
+  contentFrame.setAttribute('scrolling', "no" )
+  contentFrame.setAttribute('name', "content-frame" )
+  contentFrame.setAttribute('id', "content-frame")
+  contentFrame.setAttribute('title', "content-frame")
+  mainContainer.appendChild(contentFrame)
+
   pageURL =  'html/' + globalConfig.navbarMenu[e.target.textContent]
-  mainDashboard.setAttribute('src', pageURL)
+  console.log('showStaticPage e', pageURL, e)
+  contentFrame.setAttribute('src', pageURL)
   escapeButton.setAttribute('href', globalConfig.baseURL)
 }
 
