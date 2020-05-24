@@ -110,9 +110,11 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
     a.className = 'waves-effect'
     a.setAttribute('href', '#!')
     a.setAttribute('looker-link', item.label)
+    a.setAttribute('looker-category', item.category)
+    a.setAttribute('looker-reference', item.reference)
     a.innerHTML = '<i class="material-icons">' + item.icon + '</i>' + item.label
 
-    // a.addEventListener('click', changeDashboard)
+    a.addEventListener('click', changeDashboard)
 
     li.appendChild(a)
     slideOutMenu.appendChild(li)
@@ -129,6 +131,8 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
 
 // CREATE DEFAULT DASHBOARD
 showDashboard(159);
+
+
 
 // window.addEventListener('message', function(event) {
 //   if (event.source === mainDashboard.contentWindow) {
@@ -168,26 +172,16 @@ showDashboard(159);
 // }
 
 
-// function changeDashboard(e) {
-//   var label = e.target.attributes['looker-link'].value
-//   for (i = 0; i < globalConfig.sidebarItems.length; i++) {
-//     console.log('changeDashboard()', label, globalConfig.sidebarItems[i].label)
-//     if (globalConfig.sidebarItems[i].label == label) {
-//       content = globalConfig.sidebarItems[i]
-//       break
-//     } else {
-//       content = globalConfig.sidebarItems[0]
-//     }
-//   }
-//   newURL = getEmbedURL(content)
+function changeDashboard(e) {
+  console.log('changeDashboard e.target', e.target);
 
-//   // header.textContent = newDash
-//   mainDashboard.setAttribute('src', newURL)
-//   if (content.category == 'explore') {
-//     mainDashboard.setAttribute('height', '600')
-//   } 
-//   mainDashboard.style.display = 'block'
-// }
+  var category = e.target.attributes['looker-category'].value
+  var reference = e.target.attributes['looker-reference'].value
+
+  if (category === 'dashboards') {
+    showDashboard(reference)
+  }
+}
 
 function showDashboard(dashboardId) {
   var mainContainer = document.getElementById('main-container')
@@ -230,21 +224,3 @@ function showStaticPage(e) {
   contentFrame.setAttribute('src', pageURL)
   escapeButton.setAttribute('href', globalConfig.baseURL)
 }
-
-
-function getEmbedURL(content) {
-  let embedURL = globalConfig.baseURL
-        + '/embed/'
-        + content.category
-        + '/'
-        + content.reference
-        + '?embed_domain='
-        + globalConfig.embedDomain
-
-  if (content.category == 'dashboards') {
-    embedURL += '&hide_title=true&theme=' + globalConfig.lookerTheme
-  }
-
-  return embedURL
-}
-
