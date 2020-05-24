@@ -1,1 +1,4 @@
-exports.theme = 'purple'
+exports.theme = {
+  location: 'themes',
+  name: 'purple'
+}

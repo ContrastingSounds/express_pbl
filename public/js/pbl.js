@@ -47,7 +47,7 @@ title = document.getElementById('title')
 title.textContent = globalConfig.title
 
 favicon = document.getElementById('favicon')
-favicon.setAttribute('href', globalConfig.favicon)
+favicon.setAttribute('href',  'img/' + globalConfig.favicon)
 
 // NAV BAR
 
@@ -55,7 +55,7 @@ navbar = document.getElementById('navbar')
 navbar.classList.add(globalConfig.navbarBackgroundColor)
 
 navbarImage = document.getElementById('navbar-logo')
-navbarImage.setAttribute('src', globalConfig.logo)
+navbarImage.setAttribute('src', 'img/' + globalConfig.logo)
 if (globalConfig.logoClass) {
   navbarImage.classList.add(globalConfig.logoClass)
 }
@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 sidebarBackgroundImage = document.getElementById('sidebar-image')
-sidebarBackgroundImage.setAttribute('src', globalConfig.sidebarBackgroundImage)
+sidebarBackgroundImage.setAttribute('src',  'img/' + globalConfig.sidebarBackgroundImage)
 
 sidebarLogo = document.getElementById('sidebar-logo')
-sidebarLogo.setAttribute('src', globalConfig.sidebarImage)
+sidebarLogo.setAttribute('src',  'img/' + globalConfig.sidebarImage)
 
 sidebarTitle = document.getElementById('sidebar-title')
 sidebarTitle.textContent = globalConfig.title
@@ -216,7 +216,7 @@ function changeDashboard(e) {
 
 
 function showStaticPage(e) {
-  pageURL = globalConfig.navbarMenu[e.target.textContent]
+  pageURL =  'html/' + globalConfig.navbarMenu[e.target.textContent]
   mainDashboard.setAttribute('src', pageURL)
   escapeButton.setAttribute('href', globalConfig.baseURL)
 }

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
+  
   <body>
     <nav>
       <div id='navbar' class="nav-wrapper">
@@ -30,23 +31,10 @@
       </div></li>
     </ul>
 
-    <div id='main-container' class="container">
-      <!-- <h2 id="header"></h2> -->
-      <br><br>
-      <iframe 
-          src=''
-          width='100%' 
-          height='2500' 
-          frameBorder='0'
-          scrolling="no" 
-          name="looker_dashboard" 
-          id="looker_dashboard"
-          title="looker_dashboard"
-        >
-      </iframe>
-    </div>
+    <div id='main-container' class="container"></div>
 
-    <script type="text/javascript" src="/themes/pebl/config.js"></script>
+    <script type="text/javascript" src="/{{ theme.location }}/{{ theme.name }}/theme.js"></script>
+    <script type="text/javascript" src='https://unpkg.com/@looker/embed-sdk@1.1.0/dist/main.js'></script>
     <script type="text/javascript" src="/js/pbl.js"></script>
   </body>
 </html>
