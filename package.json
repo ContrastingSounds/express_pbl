@@ -1,0 +1,16 @@
+{
+  "name": "express-pbl",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@looker/embed-sdk": "^1.1.0",
+    "cookie-parser": "~1.4.4",
+    "create-hmac": "^1.1.7",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1"
+  }
+}
