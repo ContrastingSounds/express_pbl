@@ -130,7 +130,7 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
 }
 
 // CREATE DEFAULT DASHBOARD
-showDashboard(159);
+showDashboard(globalConfig.sidebarItems[0].reference);
 
 
 

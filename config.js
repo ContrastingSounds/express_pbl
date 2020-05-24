@@ -1,4 +1,4 @@
 exports.theme = {
   location: 'themes',
-  name: 'purple'
+  name: 'default'
 }
