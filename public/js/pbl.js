@@ -180,7 +180,9 @@ function changeDashboard(e) {
 
   if (category === 'dashboards') {
     showDashboard(reference)
-  }
+  } else if (category === 'explore') {
+    showExplore(reference)
+  }  
 }
 
 function showDashboard(dashboardId) {
@@ -188,21 +190,49 @@ function showDashboard(dashboardId) {
   mainContainer.innerHTML = '';
 
   lookerEmbedSDK.createDashboardWithId(dashboardId)
-  .appendTo('#main-container')
-  .withClassName('looker-embed')
-  .withTheme('LookerWhite')
-  // .on('dashboard:run:start',
-  //     () => updateState('#dashboard-state', 'Running')
-  // )
-  // .on('dashboard:run:complete',
-  //     () => updateState('#dashboard-state', 'Done')
-  // )
-  .build()
-  .connect()
-  // .then(setupDashboard)
-
-
+    .appendTo('#main-container')
+    .withClassName('looker-embed')
+    .withTheme('LookerWhite')
+    // .on('dashboard:run:start',
+    //     () => updateState('#dashboard-state', 'Running')
+    // )
+    // .on('dashboard:run:complete',
+    //     () => updateState('#dashboard-state', 'Done')
+    // )
+    .build()
+    .connect()
+    // .then(setupDashboard)
 }
+
+function showExplore(exploreId) {
+  var mainContainer = document.getElementById('main-container')
+  mainContainer.innerHTML = '';
+
+  lookerEmbedSDK.createExploreWithId(exploreId)
+    .appendTo('#main-container')
+    .withClassName('looker-embed')
+    .build()
+    .connect()
+}
+
+function showLook(lookId) {
+  var mainContainer = document.getElementById('main-container')
+  mainContainer.innerHTML = '';
+
+  LookerEmbedSDK.createLookWithId(lookId)
+    .appendTo('#main-container')
+    // .on('look:run:start', () => updateState('#look-state', 'Running'))
+    // .on('look:run:complete', () => updateState('#look-state', 'Done'))
+    .withClassName('looker-embed')
+    // .withFilters({ 'users.state': 'California' })
+    .build()
+    .connect()
+    // .then(setupLook)
+    // .catch((error: Error) => {
+    //   console.error('Connection error', error)
+    // })
+}
+
 
 function showStaticPage(e) {
   var mainContainer = document.getElementById('main-container')
