@@ -38,14 +38,14 @@ var globalConfig = {
       type: 'li',
       icon: 'euro_symbol',
       label: 'Business Pulse',
-      category: 'dashboards',
+      category: 'dashboard',
       reference: 159
     },
     {
       type: 'li',
       icon: 'dashboard',
       label: 'Brand Analytics',
-      category: 'dashboards',
+      category: 'dashboard',
       reference: 8,
     },
     {
@@ -56,7 +56,7 @@ var globalConfig = {
       type: 'li',
       icon: 'access_time',
       label: 'Shipping Logistics',
-      category: 'dashboards',
+      category: 'dashboard',
       reference: 3322,
     },
     {
@@ -67,8 +67,19 @@ var globalConfig = {
       type: 'li',
       icon: 'euro_symbol',
       label: 'All Sales Pulse',
-      category: 'dashboards',
+      category: 'dashboard',
       reference: 317,
+    },
+    {
+      type: 'subheader',
+      text: 'Reports',
+    },
+    {
+      type: 'li',
+      icon: 'euro_symbol',
+      label: 'High Risk Campaigns',
+      category: 'look',
+      reference: 20409
     },
     {
       type: 'subheader',

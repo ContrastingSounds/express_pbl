@@ -178,11 +178,13 @@ function changeDashboard(e) {
   var category = e.target.attributes['looker-category'].value
   var reference = e.target.attributes['looker-reference'].value
 
-  if (category === 'dashboards') {
+  if (category === 'dashboard') {
     showDashboard(reference)
   } else if (category === 'explore') {
     showExplore(reference)
-  }  
+  } else if (category === 'look') {
+    showLook(reference)
+  }
 }
 
 function showDashboard(dashboardId) {
@@ -218,8 +220,7 @@ function showExplore(exploreId) {
 function showLook(lookId) {
   var mainContainer = document.getElementById('main-container')
   mainContainer.innerHTML = '';
-
-  LookerEmbedSDK.createLookWithId(lookId)
+  lookerEmbedSDK.createLookWithId(lookId)
     .appendTo('#main-container')
     // .on('look:run:start', () => updateState('#look-state', 'Running'))
     // .on('look:run:complete', () => updateState('#look-state', 'Done'))
