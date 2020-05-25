@@ -8,23 +8,23 @@ router.get('/', function(req, res) {
 });
 
 router.get('/themes/:theme', function(req, res) {
-  config = {
+  var theme = {
     theme: {
       location: 'themes',
       name: req.params.theme
     }
   }
-  res.render('index', config);
+  res.render('index', theme);
 })
 
 router.get('/confidential/:theme', function(req, res) {
-  config = {
+  var theme = {
     theme: {
       location: 'confidential',
       name: req.params.theme
     }
   }
-  res.render('index', config);
+  res.render('index', theme);
 })
 
 module.exports = router;

@@ -2,25 +2,7 @@ lookerEmbedSDK = LookerEmbedSDK.LookerEmbedSDK
 
 lookerEmbedSDK.init('demo.looker.com', '/auth')
 
-
-
-// Looker event handling – unused events
-tileEvents = [
-  'dashboard:tile:start',
-  'dashboard:tile:complete',
-]
-
-dashboardEvents = [
-  'dashboard:run:start',
-  'dashboard:run:complete'
-]
-
-exploreEvents = [
-  'explore:state:changed',
-  'explore:run:start',
-  'explore:run:complete',
-]
-
+// BROWSER TITLE
 
 title = document.getElementById('title')
 title.textContent = globalConfig.title
@@ -114,7 +96,7 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
     a.setAttribute('looker-reference', item.reference)
     a.innerHTML = '<i class="material-icons">' + item.icon + '</i>' + item.label
 
-    a.addEventListener('click', changeDashboard)
+    a.addEventListener('click', changeEmbed)
 
     li.appendChild(a)
     slideOutMenu.appendChild(li)
@@ -132,48 +114,21 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
 // CREATE DEFAULT DASHBOARD
 showDashboard(globalConfig.sidebarItems[0].reference);
 
-
-
-// window.addEventListener('message', function(event) {
-//   if (event.source === mainDashboard.contentWindow) {
-//     if (event.origin == globalConfig.baseURL) {
-//       payload = JSON.parse(event.data)
-//       handleEmbedEvent(payload)
-//     }
-//   }
-// });
-
 // NOTE: most events are ignored. Placeholders below will make it easy to add
 //       new handlers if required.
 // function handleEmbedEvent(e) {
 //   console.log(e.type)
-//   if (e.type == 'page:properties:changed') {
-//     mainDashboard.setAttribute('height', e.height)
-//   } else if ( e.type == 'page:changed' ) {
+//   if ( e.type == 'page:changed' ) {
 //     escapeButton.setAttribute('href', e.page.absoluteUrl.replace('embed/', ''))
 //   } else if (e.type == 'dashboard:filters:changed') {
 //     console.log('Filters changed:', e.dashboard.dashboard_filters)
-//   } else if (e.type == 'explore:state:changed') {
-//     mainDashboard.setAttribute('height', 600)
-//   } else if ( tileEvents.includes(e.type) ) {
-//     //
-//   } else if ( dashboardEvents.includes(e.type) ) {
-//     //
-//   } else if ( exploreEvents.includes(e.type) ) {
-//     //
-//   } else {
-//     console.log('Looker:', e.type, e)
-//   }
+//   } 
 // }
 
 
-// function sendEmbedEvent(e) {
-//   mainDashboard.contentWindow.postMessage(e, globalConfig.baseURL)
-// }
 
-
-function changeDashboard(e) {
-  console.log('changeDashboard e.target', e.target);
+function changeEmbed(e) {
+  console.log('changeEmbed e.target', e.target);
 
   var category = e.target.attributes['looker-category'].value
   var reference = e.target.attributes['looker-reference'].value
@@ -187,23 +142,33 @@ function changeDashboard(e) {
   }
 }
 
+function resizeContent(height) {
+  var elem = document.getElementById('main-container').firstChild
+  elem.setAttribute('height', height)
+}
+
+function setupDashboard(dashboard) {
+  navbarImage.addEventListener('click', (e) => {
+    console.log('navbarImage event', e);
+    dashboard.updateFilters({'State': 'California'});
+    dashboard.run()
+  })
+}
+
 function showDashboard(dashboardId) {
   var mainContainer = document.getElementById('main-container')
   mainContainer.innerHTML = '';
 
-  lookerEmbedSDK.createDashboardWithId(dashboardId)
+  var dashboard = lookerEmbedSDK.createDashboardWithId(dashboardId)
     .appendTo('#main-container')
     .withClassName('looker-embed')
+    .withClassName('looker-dashboard')
     .withTheme('LookerWhite')
-    // .on('dashboard:run:start',
-    //     () => updateState('#dashboard-state', 'Running')
-    // )
-    // .on('dashboard:run:complete',
-    //     () => updateState('#dashboard-state', 'Done')
-    // )
+    .on('page:properties:changed', (e) => resizeContent(e.height))
+    .on('dashboard:filters:changed', (e) => console.log('Filters changed:', e.dashboard.dashboard_filters))
     .build()
     .connect()
-    // .then(setupDashboard)
+    .then(setupDashboard)
 }
 
 function showExplore(exploreId) {
@@ -213,6 +178,8 @@ function showExplore(exploreId) {
   lookerEmbedSDK.createExploreWithId(exploreId)
     .appendTo('#main-container')
     .withClassName('looker-embed')
+    .withClassName('looker-explore')
+    .on('explore:state:changed', () => resizeContent(680))
     .build()
     .connect()
 }
@@ -222,16 +189,12 @@ function showLook(lookId) {
   mainContainer.innerHTML = '';
   lookerEmbedSDK.createLookWithId(lookId)
     .appendTo('#main-container')
-    // .on('look:run:start', () => updateState('#look-state', 'Running'))
-    // .on('look:run:complete', () => updateState('#look-state', 'Done'))
     .withClassName('looker-embed')
+    .withClassName('looker-look')
+    .on('look:run:start', () => resizeContent(680))
     // .withFilters({ 'users.state': 'California' })
     .build()
     .connect()
-    // .then(setupLook)
-    // .catch((error: Error) => {
-    //   console.error('Connection error', error)
-    // })
 }
 
 
@@ -242,7 +205,7 @@ function showStaticPage(e) {
   var contentFrame = document.createElement('iframe')
   contentFrame.setAttribute('src', '')
   contentFrame.setAttribute('width', '100%' )
-  contentFrame.setAttribute('height', '2500' )
+  contentFrame.setAttribute('height', '680' )
   contentFrame.setAttribute('frameBorder', '0')
   contentFrame.setAttribute('scrolling', "no" )
   contentFrame.setAttribute('name', "content-frame" )
