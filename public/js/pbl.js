@@ -114,18 +114,6 @@ for (let i = 0; i < globalConfig.sidebarItems.length; i++) {
 // CREATE DEFAULT DASHBOARD
 showDashboard(globalConfig.sidebarItems[0].reference);
 
-// NOTE: most events are ignored. Placeholders below will make it easy to add
-//       new handlers if required.
-// function handleEmbedEvent(e) {
-//   console.log(e.type)
-//   if ( e.type == 'page:changed' ) {
-//     escapeButton.setAttribute('href', e.page.absoluteUrl.replace('embed/', ''))
-//   } else if (e.type == 'dashboard:filters:changed') {
-//     console.log('Filters changed:', e.dashboard.dashboard_filters)
-//   } 
-// }
-
-
 
 function changeEmbed(e) {
   console.log('changeEmbed e.target', e.target);
@@ -147,7 +135,7 @@ function resizeContent(height) {
   elem.setAttribute('height', height)
 }
 
-function setupDashboard(dashboard) {
+function linkPageToDashboard(dashboard) {
   navbarImage.addEventListener('click', (e) => {
     console.log('navbarImage event', e);
     dashboard.updateFilters({'State': 'California'});
@@ -159,7 +147,7 @@ function showDashboard(dashboardId) {
   var mainContainer = document.getElementById('main-container')
   mainContainer.innerHTML = '';
 
-  var dashboard = lookerEmbedSDK.createDashboardWithId(dashboardId)
+  lookerEmbedSDK.createDashboardWithId(dashboardId)
     .appendTo('#main-container')
     .withClassName('looker-embed')
     .withClassName('looker-dashboard')
@@ -168,7 +156,7 @@ function showDashboard(dashboardId) {
     .on('dashboard:filters:changed', (e) => console.log('Filters changed:', e.dashboard.dashboard_filters))
     .build()
     .connect()
-    .then(setupDashboard)
+    .then(linkPageToDashboard)
 }
 
 function showExplore(exploreId) {
