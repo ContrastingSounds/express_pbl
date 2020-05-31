@@ -16,19 +16,18 @@
     </div>
 
     <script type="text/javascript">
-      async function getResponse(hook) {
-        var response = await fetch('/webhooks/' + hook)
-                                .then(response => response.json())
+      async function getApiCall(webhook) {
+        var response = await fetch('/webhooks/' + webhook).then(response => response.json())
         return response
       }
 
       document.getElementById("me-btn").addEventListener("click", async () => {
-        var response = await getResponse('me')
+        var response = await getApiCall('me')
         alert(JSON.stringify(response.value))
       });
 
       document.getElementById("models-btn").addEventListener("click", async () => {
-        var response = await getResponse('models')
+        var response = await getApiCall('models')
         alert(JSON.stringify(response.value))
       });
     
