@@ -96,9 +96,10 @@ var globalConfig = {
 
   navbarMenu: {
     'Themes': 'theme_index.html',
-    'Hooks': 'hooks.html',
-    'Business Value': 'business_value.html',
-    'Agile Delivery': 'agile_delivery.html',
+    'Client Calls': 'client_calls.html',
+    'Server Calls': 'server_calls.html',
+    // 'Business Value': 'business_value.html',
+    // 'Agile Delivery': 'agile_delivery.html',
     'Cloud Native': 'cloud_native.html',
   },
 }

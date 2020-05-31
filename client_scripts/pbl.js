@@ -1,5 +1,4 @@
 import { LookerEmbedSDK } from '@looker/embed-sdk'
-// lookerEmbedSDK = LookerEmbedSDK.LookerEmbedSDK
 
 LookerEmbedSDK.init(globalConfig.instance, '/auth')
 

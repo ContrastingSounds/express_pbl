@@ -4,7 +4,7 @@ module.exports = {
   mode: 'development',
   entry: {
     pbl: './client_scripts/pbl.js',
-    client_hooks: './client_scripts/client_hooks.js',
+    client_calls: './client_scripts/client_calls.js',
   },
   node: {
     fs: 'empty',

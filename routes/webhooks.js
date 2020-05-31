@@ -14,4 +14,9 @@ router.get('/models', function(req, res) {
     .then( (result) => res.json(result) )
 })
 
+router.get('/users', function(req, res) {
+  sdk.all_users()
+    .then( (result) => res.json(result) )
+})
+
 module.exports = router;
