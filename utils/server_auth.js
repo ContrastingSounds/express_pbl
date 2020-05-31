@@ -24,6 +24,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 var createHmac = require("create-hmac");
+
 function stringify(params) {
     var result = [];
     for (var key in params) {
@@ -34,9 +35,11 @@ function stringify(params) {
     }
     return result.join('&');
 }
+
 function forceUnicodeEncoding(val) {
     return decodeURIComponent(encodeURIComponent(val));
 }
+
 function signEmbedUrl(data, secret) {
     var stringsToSign = [
         data.host,
@@ -58,6 +61,7 @@ function signEmbedUrl(data, secret) {
     var stringToSign = stringsToSign.join('\n');
     return createHmac('sha1', secret).update(forceUnicodeEncoding(stringToSign)).digest('base64').trim();
 }
+
 function createNonce(len) {
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var text = '';
@@ -66,6 +70,7 @@ function createNonce(len) {
     }
     return text;
 }
+
 function createSignedUrl(src, user, host, secret, nonce) {
     var jsonTime = JSON.stringify(Math.floor((new Date()).getTime() / 1000));
     var jsonNonce = JSON.stringify(nonce || createNonce(16));
@@ -104,4 +109,5 @@ function createSignedUrl(src, user, host, secret, nonce) {
     Object.assign(params, { signature: signature });
     return "https://" + host + embedPath + "?" + stringify(params);
 }
+
 exports.createSignedUrl = createSignedUrl;
