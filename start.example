@@ -1,4 +1,13 @@
+trap 'kill $(jobs -p)' EXIT
+
+export LOOKERSDK_API_VERSION=3.1
+export LOOKERSDK_BASE_URL=https://your-instance.looker.com:19999
+export LOOKERSDK_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxx
+export LOOKERSDK_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxx
+
 export LOOKER_HOST=your-instance.looker.com
-export LOOKERSDK_EMBED_SECRET=123abc456etc
+export LOOKERSDK_EMBED_SECRET=xxxxxxxxxxxxxxxxxxxxxx
+
+node /Users/looker/Documents/GitHub/cors-anywhere/server.js &
 
 npm start
