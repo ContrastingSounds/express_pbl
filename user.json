@@ -14,6 +14,10 @@
     "save_content",
     "embed_browse_spaces"
   ],
-  "models": ["powered_by", "thelook", "thelook_adwords"],
-  "user_attributes": { "locale": "en_US" }
+  "models": ["powered_by", "thelook", "thelook_adwords", "pebl"],
+  "user_attributes": { 
+    "locale": "en_US",
+    "state": "California",
+    "city": "Albany" 
+  }
 }

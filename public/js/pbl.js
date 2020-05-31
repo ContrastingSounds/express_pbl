@@ -1,6 +1,6 @@
 lookerEmbedSDK = LookerEmbedSDK.LookerEmbedSDK
 
-lookerEmbedSDK.init('demo.looker.com', '/auth')
+lookerEmbedSDK.init(globalConfig.instance, '/auth')
 
 // BROWSER TITLE
 
@@ -64,7 +64,7 @@ if (globalConfig.navbarTextColor == 'white') {
     escapeButton.classList.add(globalConfig.navbarTextColorModifier.substr(5)) // substr removes the 'text-' prefix
   }
 }
-escapeButton.setAttribute('href', globalConfig.baseURL)
+escapeButton.setAttribute('href', 'https://' + globalConfig.instance)
 
 // SIDEBAR
 
@@ -151,7 +151,7 @@ function showDashboard(dashboardId) {
     .appendTo('#main-container')
     .withClassName('looker-embed')
     .withClassName('looker-dashboard')
-    .withTheme('LookerWhite')
+    .withTheme(globalConfig.lookerTheme)
     .on('page:properties:changed', (e) => resizeContent(e.height))
     .on('dashboard:filters:changed', (e) => console.log('Filters changed:', e.dashboard.dashboard_filters))
     .build()
@@ -185,7 +185,6 @@ function showLook(lookId) {
     .connect()
 }
 
-
 function showStaticPage(e) {
   var mainContainer = document.getElementById('main-container')
   mainContainer.innerHTML = '';
@@ -204,5 +203,5 @@ function showStaticPage(e) {
   pageURL =  'html/' + globalConfig.navbarMenu[e.target.textContent]
   console.log('showStaticPage e', pageURL, e)
   contentFrame.setAttribute('src', pageURL)
-  escapeButton.setAttribute('href', globalConfig.baseURL)
+  escapeButton.setAttribute('href', 'https://' + globalConfig.instance)
 }

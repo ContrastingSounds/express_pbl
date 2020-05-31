@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var webhooksRouter = require('./routes/webhooks');
 
 var config = require('./config.js');
 
@@ -24,5 +25,6 @@ app.use(express.static(path.join(__dirname, 'public', config.theme.location, con
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/webhooks', webhooksRouter);
 
 module.exports = app;

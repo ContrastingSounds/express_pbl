@@ -1,0 +1,4 @@
+export LOOKER_HOST=your-instance.looker.com
+export LOOKERSDK_EMBED_SECRET=123abc456etc
+
+npm start

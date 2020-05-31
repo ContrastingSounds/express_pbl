@@ -5,7 +5,7 @@
 // All icons refer to the Material Design icon set. Refer to https://materializecss.com/icons.html.
 
 // 1. Update images in img/ folder (usually required)
-// 2. Be sure to baseURL and embedDomain
+// 2. Be sure to set instance and embedDomain
 // 3. Update sidebarItems with your chosen dashboards, looks and explores : {} 
 //    - Use type: 'li' for a link to content
 //      - Use content: '' to refer to one of the keys in your content object (also used for the display text)
@@ -14,7 +14,7 @@
 // 4. Update html in html/ folder (not necessarily required)
 
 var globalConfig = {
-  baseURL: 'https://demo.looker.com',
+  instance: 'demo.looker.com',
   embedDomain: 'http://127.0.0.1:5500', // This value based on using VS Code with Live Server extension
   lookerTheme: 'LookerWhite', // Theme
   headerText: 'Introduction to Looker',
