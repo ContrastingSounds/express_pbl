@@ -1,4 +1,4 @@
-# Express PBL – As simple as possible demo of embed capabilities
+# Express PBL – As-simple-as demo of Looker embedding
 
 This project is useful for quick mockups, and understanding the core authentication methods and API calls available. Examples of what you can do:
 
