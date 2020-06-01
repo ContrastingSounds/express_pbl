@@ -1,6 +1,6 @@
 # Express PBL – As-simple-as demo of Looker embedding
 
-This project is useful for quick mockups, and understanding the core authentication methods and API calls available. Examples of what you can do:
+This is an update to [Simple PBL](https://github.com/ContrastingSounds/express_pbl): useful for quick mockups, and understanding the core authentication methods and API calls available. Examples of what you can do:
 
 - See what a custom theme will look like in a branded portal
 - Demonstrate how embeded dashboards, explores and looks can fit into a portal
@@ -12,6 +12,8 @@ It is NOT valid for production use, nor is it a useful reference architecture. E
 - State management
 - Data persistence
 - User authentication (user details are hard coded into the config.js file)
+
+![Express PBL](docs/simple_pbl.png "Express PBL")
 
 # Getting started
 
@@ -40,6 +42,7 @@ Changes are required in the following places:
 5. Create a `start` script, based on `start.example`
 6. [Download and install the cors-proxy](#cors-proxy), if you want to make client-side API calls
 7. Run `./start` once configured
+6. Go to `localhost:3000`
 
 NOTE: you can have multiple themes available for demonstration, by replicating the full directory structure. Examples of this are found in the `themes` and `confidential_example` directories.
 
