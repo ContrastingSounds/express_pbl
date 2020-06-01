@@ -1,8 +1,22 @@
+// Config checklist:
+//
+// 1. Theme content has been updated, and exports.theme points to it 
+// 2. Looker instance is set
+// 3. Cors proxy is set (unless client-side calls not being used)
+// 4. User is chosen from array of available users
+// 5. User definition is correct, in particular:
+//    - Permissions granted
+//    - Models listed
+
 exports.theme = {
   location: 'themes',
-  name: 'default',
-  user: 'standard'
+  name: 'default'
 }
+
+exports.looker_instance = 'https://demo.looker.com:19999'
+exports.cors_proxy = 'http://localhost:8080'
+
+var selected_user = 'standard'
 
 users = {
   standard: {
@@ -51,4 +65,4 @@ users = {
   }
 }
 
-exports.user = users[this.theme.user]
+exports.user = users[selected_user]
