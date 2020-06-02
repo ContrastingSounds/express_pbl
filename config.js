@@ -32,6 +32,7 @@ users = {
       "see_looks",
       "see_user_dashboards",
       "explore",
+      "create_table_calculations",
       "save_content",
       "embed_browse_spaces"
     ],
