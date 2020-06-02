@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { createSignedUrl } = require('../utils/server_auth')
+const { createSignedUrl } = require('../utils/embed_auth')
 const { generateClientToken } = require('../utils/client_auth')
 
 const config = require('../config')
